@@ -67,6 +67,7 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
 16. **Files:** `Documentation/` (this plan and the research) is committed, as in `AgentSkillsWebGL`. The repository is public, so no file contains personal data such as emails or account names.
 17. **Git:** the initial commit `create: base structure` is on `main`. All other work goes on `feature/checklist-1.0.0`, committed after each finished step. Commit messages are one lowercase line, `<subject>: <intent>`, at most 25 characters, with no body and no trailers, as in the sibling repositories (`create: root readme`, `polish: cover layout`). The work ends in one squash PR titled `feature: checklist 1.0.0`, whose description uses the CHANGELOG `### What's new` format. Every push, the PR creation and the merge each need the user's go-ahead in chat.
 18. **Out of scope for 1.0.0:** `AgentSkillsMobile` content, SDK5 changes, store page material, children's rules, mainland China, and TV, watch, car, PC and Mac targets.
+19. **No paid random items:** no loot boxes, gacha or other random rewards bought with real money or with a currency that can be bought, and every paid item shows exactly what the player gets. The user chose this on 2026-11-17. Reason: Apple and Huawei rate paid loot boxes 16+ in Australia and 18+ in Brazil, which breaks decision 6. It also avoids Korea's probability-item law for ONE Store. Rejected: allowing them with 16+/18+ ratings in those countries; dropping Australia and Brazil.
 
 ### Tags
 
@@ -239,7 +240,7 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
     - **No in-game update prompts:** Xiaomi bans them.
     - **Full Russian localization:** required by 168-FZ.
     - **Russian players' data stored in Russia:** 152-FZ; tagged RuStore, but the law covers every build.
-  - **Note:** Open question for the user: paid loot boxes. Decision 6 (13+) and research conflict: Apple and Huawei rate paid loot boxes 16+ in Australia and 18+ in Brazil. The matrix currently says "no paid loot boxes" (M, topic "13+ rating"). C1 waits for the answer.
+  - **Note:** Paid loot boxes, the open question after B4, are resolved by decision 19.
 
 #### C. English checklist (Depends on: B | Est: 2h 30m)
 
