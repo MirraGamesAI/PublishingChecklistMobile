@@ -1,7 +1,7 @@
 # Mobile Checklist 1.0.0
 
-- **Status:** In progress (11/12 tasks complete | Next: E1, needs the user's go-ahead to push and open the PR)
-- **Total Estimate:** 6h 30m active, plus about 45m of agent wall time overlapped by B2 and the user's review time in C2 (Remaining: 15m)
+- **Status:** Complete (12/12 tasks complete). PR https://github.com/MirraGamesAI/PublishingChecklistMobile/pull/1 is open; the user squash merges it.
+- **Total Estimate:** 6h 30m active, plus about 45m of agent wall time overlapped by B2 and the user's review time in C2 (Remaining: 0m)
 - **Note:** The user approved the English draft on 2026-11-17. Their only question was about IPv6, so A11 was reworded to say that every online feature must work on an IPv6-only network, with a NAT64 test hint.
 - **Goal:** Publish the Unity Mobile Publishing Checklist 1.0.0 in `MirraGamesAI/PublishingChecklistMobile`: English and Russian files, identical item for item, whose main items plus store-tagged items make each per-store build (AAB or APK for 8 Android stores, IPA for Apple) pass review in all 9 covered stores. Done when every store rule found in research is either a checklist item or a recorded drop with a reason, and both PDFs build with zero warnings.
 
@@ -294,7 +294,7 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
 
 #### E. Ship (Depends on: D | Est: 20m)
 
-- [ ] **E1. Push and open the pull request** (Depends on: D2 | Est: 15m)
+- [x] **E1. Push and open the pull request** (Depends on: D2 | Est: 15m)
   - **Context:** Decision 17. Every outward step needs the user's go-ahead.
   - **Scope & Entry:** branches `main` and `feature/checklist-1.0.0`.
   - **Action:** Push `main`, push `feature/checklist-1.0.0`, and open the PR `feature: checklist 1.0.0` with a description listing sections, stores and sources. Squash merge only when the user says so.
