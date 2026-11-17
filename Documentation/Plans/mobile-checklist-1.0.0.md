@@ -1,8 +1,8 @@
 # Mobile Checklist 1.0.0
 
-- **Status:** In progress (5/12 tasks complete | Next: B3, after the B1 agents finish)
-- **Total Estimate:** 6h 30m active, plus about 45m of agent wall time overlapped by B2 and the user's review time in C2 (Remaining: 5h 20m)
-- **Goal:** Publish the Unity Mobile Publishing Checklist 1.0.0 in `MirraGamesAI/PublishingChecklistMobile`: English and Russian files, identical item for item, whose main items plus store-tagged items make each per-store build (AAB or APK for 9 Android stores, IPA for Apple) pass review in all 10 covered stores. Done when every store rule found in research is either a checklist item or a recorded drop with a reason, and both PDFs build with zero warnings.
+- **Status:** In progress (6/12 tasks complete | Next: B4)
+- **Total Estimate:** 6h 30m active, plus about 45m of agent wall time overlapped by B2 and the user's review time in C2 (Remaining: 4h 50m)
+- **Goal:** Publish the Unity Mobile Publishing Checklist 1.0.0 in `MirraGamesAI/PublishingChecklistMobile`: English and Russian files, identical item for item, whose main items plus store-tagged items make each per-store build (AAB or APK for 8 Android stores, IPA for Apple) pass review in all 9 covered stores. Done when every store rule found in research is either a checklist item or a recorded drop with a reason, and both PDFs build with zero warnings.
 
 ### Stack
 
@@ -10,7 +10,7 @@
 - **PDF:** Node.js 24.22.1 (18 or newer required) and Chrome 131 or newer at `C:\Program Files\Google\Chrome\Application\chrome.exe`. Fonts load from Google Fonts, so the build needs network access.
 - **Research:** 7 `general-purpose` agents with web search and fetch, running in parallel. They write Markdown into `Documentation/Research/`.
 - **GitHub:** `gh` 2.103.2, authenticated with admin rights on both repositories. `MirraGamesAI/PublishingChecklistAndroid` is public and `MirraGamesAI/AgentSkillsAndroid` is private, and both had no commits on 2026-11-17.
-- **Unity context (hints only):** the floor is 2022.3 LTS, as in `AgentSkillsWebGL`. The store layer is MirraSDK5 5.2.3 (`https://github.com/MirraSDK/SDK5`, local copy `D:\github-mirrasdk\SDK5`).
+- **Unity context (hints only):** the floor is Unity 6000.0.68f1 or 6000.3.8f1 (decision 12), higher than the 2022.3 LTS floor in `AgentSkillsWebGL`. The store layer is MirraSDK5 5.2.3 (`https://github.com/MirraSDK/SDK5`, local copy `D:\github-mirrasdk\SDK5`).
 
 ### Locked Decisions and Invariants
 
@@ -26,6 +26,7 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
 
    The Amazon Appstore has been limited to Fire devices since 2025-08-20 and is covered on Fire tablets only.
 4. **Epic is a partial source.** If research finds no public developer rules, Epic leaves 1.0.0 and the CHANGELOG names it as planned. Epic never blocks the release.
+   - **Outcome (B3, 2026-11-17):** Epic left 1.0.0. Its mobile developer docs return 403 outside the Mobile Early Adopter program, and self-service publishing is offered only for PC games. The `Epic` tag was removed from `PLATFORMS`, and its 20 rows in `aptoide-epic.md` are recorded as dropped. 1.0.0 covers 9 stores: 8 Android and Apple.
 5. **Scope:** everything needed to produce and verify a store build (AAB, APK, Xcode project and IPA): code, SDKs, settings, manifests, signing and packaging. A step outside the build becomes an item only if it changes the build or blocks installs:
    - Android developer verification: the package name and signing key registered with Google. It is enforced on certified devices from 2026-09-30 in Brazil, Indonesia, Singapore and Thailand, with more regions in 2027.
    - Device availability.
@@ -36,9 +37,16 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
 7. **Rule merging:** a rule every store accepts becomes a main item in its strictest variant. A rule that cannot hold in every build becomes a store-tagged item, enabled in that store's build. Every conflict and its resolution is recorded in `Documentation/Research/conflicts.md`.
 8. **Format:** identical to Web 2.0.0. It covers the parser subset of `build.mjs`, the cover warning and "How to read" list, `(Optional)` blocks (purchases, rewarded ads, login, social, multiplayer), `- Unity:` hint lines, a Sources section with "partial" marks and a "Checked on" line. Human checks come first in each section, followed by `**Can be automated**` items marked `Auto test` or `Ask AI`. Item numbers are permanent: a new item takes the next free number in its section, and a removed number is never reused. Reason for the identical format: PrintPDF and the `AgentSkillsWebGL` `Tools/SyncChecklist` parser are reused unchanged by a future `AgentSkillsMobile`.
 9. **Sections:** A-M keep the Web topics, so QA maps Web and Mobile items by letter. N and O are mobile-only. See the section table.
-10. **Tags:** an item without a tag applies to every build, Android and iOS. `Android` is a group tag for all 9 Android stores and is not listed as a platform on the cover. `Apple` marks iOS-only items.
+10. **Tags:** an item without a tag applies to every build, Android and iOS. `Android` is a group tag for all 8 Android stores and is not listed as a platform on the cover. `Apple` marks iOS-only items.
 11. **Languages:** English is the master. Russian is translated after the user approves the English draft, item for item, reusing the terms of the Web Russian file: `Для отдельных площадок`, `Можно автоматизировать`, `Опционально`, `Автотест`, `Спросить ИИ`, `Проверено`.
 12. **Unity hints:** the floor is 2022.3 LTS. Technical research (B1 group 7) sets the minimum patch that meets target API 36, 16 KB pages and the current Xcode requirement. If 2022.3 cannot meet a store requirement, the floor becomes the lowest Unity 6 patch that does, and the item states the reason.
+    - **Outcome (B3, 2026-11-17):** the floor is **6000.0.68f1 or 6000.3.8f1**, per `technical.md` "Unity versions". Reasons:
+      - Public 2022.3 support ended on 2025-05-30, and later patches are xLTS for Enterprise only.
+      - No 2022.3 patch bundles AGP 8. Google's 16 KB packaging guidance needs AGP 8.5.1+, and Yandex Mobile Ads 8.6.0 (the RuStore ad network) needs AGP 8.7.0+, which arrives in 6000.0.45f1 and 6000.3.1f1.
+      - Target API 36 needs 6000.0.46f1.
+      - UIScene, required for iOS 27 SDK builds from April 2027, arrives in 6000.0.68f1 and 6000.3.8f1, and in 2022.3 only in xLTS 2022.3.72f1.
+
+      No official minimum Unity patch for Xcode 26 was found. The floor patches (February 2026) postdate Xcode 26 (September 2025), so this is an assumption to confirm with a test build.
 
     Hints name MirraSDK5 as the Unity store layer, the way the Web list names MirraGamesTemplate. Its Android configurations are `GooglePlay`, `HuaweiAppGallery`, `SamsungGalaxyStore`, `XiaomiGames`, `RuStore`, `OneStore`, `AmazonAppStore` and `Aptoide`, and its iOS configuration is `AppleAppStore`. All of them still use `Fallback*` providers for ads, payments and player account. SDK5 changes are out of scope: the gaps are reported to the user at the end and are not written into the checklist.
 13. **Research:** 7 agents in parallel, in the groups listed in B1. Official sources come first; a third-party source is used only when no official one exists, and is marked as third-party. Every rule row carries a source URL. The "Checked on" date is the date B3 finishes.
@@ -73,8 +81,8 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
 | `ONE Store` | ONE Store | Korea and ONE Store Global | `OneStore` |
 | `Amazon` | Amazon Appstore | Fire tablets | `AmazonAppStore` |
 | `Aptoide` | Aptoide | Worldwide | `Aptoide` |
-| `Epic` | Epic Games Store | Android, partial | none |
-| `Android` | Group tag for all 9 Android stores | Not shown on the cover | - |
+| `Epic` | Epic Games Store | Dropped from 1.0.0 (decision 4), not in `PLATFORMS` | none |
+| `Android` | Group tag for all 8 Android stores | Not shown on the cover | - |
 
 ### Sections
 
@@ -174,6 +182,7 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
     Level is `must` when breaking the rule causes rejection or removal, and `should` for quality or featuring guidance.
   - **Verify:** see B3.
   - **Note:** Launched on 2026-11-17. Each brief also asked the agent to report every seed fact as `confirmed`, `corrected` or `not found` in a `## Seed facts` table, and to put the full URL in each rule's Source column. If a session reset loses the agents, rerun only the groups whose file is missing.
+  - **Note:** On 2026-11-17 all 7 agents stopped at an API usage limit. Only `aptoide-epic.md` had been written, with 62 rows. All 7 were resumed with SendMessage from their saved transcripts.
 
 - [x] **B2. Adapt PrintPDF for the mobile checklist** (Depends on: A2 | Est: 30m, done while the B1 agents run)
   - **Context:** Decisions 8 and 10. The tag table is the source for `PLATFORMS`.
@@ -188,7 +197,7 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
   - **Verify:** `node Tools/PrintPDF/build.mjs <sample>.md --output <scratch folder>` builds a one-section sample, using every tag, both markers and an Optional block, with zero warnings. The cover lists the 10 stores and not `Android`.
   - **Note:** Done on 2026-11-17. The sample built with no parser warnings. The only message was the expected "Changelog not found", which D2 removes. The HTML has 10 cover chips and no `Android` chip. The label `**Platform-specific**` is kept even though it groups stores, because the parsers match it exactly.
 
-- [ ] **B3. Validate the research files** (Depends on: B1 | Est: 30m)
+- [x] **B3. Validate the research files** (Depends on: B1 | Est: 30m)
   - **Context:** Decision 13. Agent output is unverified until checked.
   - **Scope & Entry:** `Documentation/Research/*.md`.
   - **Action:**
@@ -201,6 +210,14 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
     - A row count over `^\| \d+ \|` returns rows for all 7 files.
     - No rule row lacks `http`.
     - Every store in the tag table appears in at least one Sources list.
+  - **Note:** Done on 2026-11-17. "Checked on" is 2026-11-17.
+    - **Rows:** 643 rule rows in total: Apple 109, Aptoide and Epic 58, Google Play 116, Huawei and Xiaomi 89, RuStore and ONE Store 77, Samsung and Amazon 99, technical 95. Every row has a URL, the numbering has no gaps, and every file is plain ASCII.
+    - **Store names:** `technical.md` uses full store names (`Apple App Store`, `Samsung Galaxy Store`) and the group names `All` and `All Android`. Treat them as the matching tags.
+    - **Contradictions resolved:**
+      - Amazon targetSdkVersion: Fire OS 14 and 16 (API 34, 36) in `technical.md` row 36 are Fire TV versions, confirmed on the device-filtering page. Fire tablets run Fire OS 7 and 8 (API 28, 30).
+      - Samsung target API: 34 in the Seller Portal notice versus 33 in the Galaxy Games FAQ. Both are below Google Play's 36, so the main item covers them.
+      - Huawei 64-bit and target API: only third-party sources exist. Both are covered by the main items (arm64-v8a, API 36).
+    - **Open:** Galaxy Store's age-rating system (store form, out of scope); the official minimum Unity patch for Xcode 26 (decision 12 outcome).
 
 - [ ] **B4. Build the conflict matrix** (Depends on: B3 | Est: 45m)
   - **Context:** Decision 7. This step turns the store rules into rules that hold in every store.
@@ -246,7 +263,7 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
   - **Context:** Decisions 4 and 8. Modelled on the Web `README.md` and `CHANGELOG.md`.
   - **Scope & Entry:** `README.md` and `CHANGELOG.md` (new).
   - **Action:**
-    - README: a one-line description (10 stores, Android and iOS, covers the build and not the store page), a path table, build instructions, and the same 4 editing rules as Web.
+    - README: a one-line description (9 stores, Android and iOS, covers the build and not the store page), a path table, build instructions, and the same 4 editing rules as Web.
     - CHANGELOG: `# Unity Mobile Publishing Checklist 1.0.0`, a summary of what is covered, and Epic's status under decision 4.
   - **Verify:** Both PDF covers show 1.0.0, and every README link resolves to an existing path.
 
@@ -263,4 +280,4 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
   - **Scope & Entry:** `D:\github-mirragames-ai\PublishingChecklistAndroid`, `D:\github-mirragames-ai\AgentSkillsAndroid`.
   - **Action:** `AgentSkillsAndroid` was moved to `AgentSkillsMobile` directly. `PublishingChecklistAndroid` was copied to `PublishingChecklistMobile` (verified identical with `diff -r`), and the session moved into the copy. The old folder is a stale duplicate with no commits and is removed once no process holds it.
   - **Verify:** `git -C D:\github-mirragames-ai\PublishingChecklistMobile status` and `git -C D:\github-mirragames-ai\AgentSkillsMobile remote -v` succeed.
-  - **Note:** Done on 2026-11-17, except removing the old folder: if `rm -rf D:\github-mirragames-ai\PublishingChecklistAndroid` still reports it busy, the user deletes it after closing this session.
+  - **Note:** Done on 2026-11-17. The empty old folder was removed after the session restarted in `PublishingChecklistMobile`.
