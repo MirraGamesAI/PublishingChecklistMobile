@@ -67,7 +67,6 @@ const PLATFORMS = {
   "ONE Store": { key: "one-store", fullName: "ONE Store", background: "#f2e8fd", color: "#7a2bc4" },
   Amazon: { key: "amazon", fullName: "Amazon Appstore", background: "#fdf3d3", color: "#8a5d00" },
   Aptoide: { key: "aptoide", fullName: "Aptoide", background: "#fde8f1", color: "#b0306a" },
-  Epic: { key: "epic", fullName: "Epic Games Store", background: "#f3ece4", color: "#7a5230" },
   Android: { key: "android", fullName: "All Android stores", background: "#def5f1", color: "#0f766e", cover: false },
 }
 
