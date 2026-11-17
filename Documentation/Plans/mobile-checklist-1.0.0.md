@@ -1,7 +1,7 @@
 # Mobile Checklist 1.0.0
 
-- **Status:** In progress (7/12 tasks complete | Next: C1, after the user answers the paid loot box question in the B4 note)
-- **Total Estimate:** 6h 30m active, plus about 45m of agent wall time overlapped by B2 and the user's review time in C2 (Remaining: 4h 05m)
+- **Status:** In progress (8/12 tasks complete | Next: C2, user review of the English PDF)
+- **Total Estimate:** 6h 30m active, plus about 45m of agent wall time overlapped by B2 and the user's review time in C2 (Remaining: 2h 05m)
 - **Goal:** Publish the Unity Mobile Publishing Checklist 1.0.0 in `MirraGamesAI/PublishingChecklistMobile`: English and Russian files, identical item for item, whose main items plus store-tagged items make each per-store build (AAB or APK for 8 Android stores, IPA for Apple) pass review in all 9 covered stores. Done when every store rule found in research is either a checklist item or a recorded drop with a reason, and both PDFs build with zero warnings.
 
 ### Stack
@@ -244,7 +244,7 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
 
 #### C. English checklist (Depends on: B | Est: 2h 30m)
 
-- [ ] **C1. Draft the English checklist** (Depends on: B4 | Est: 2h)
+- [x] **C1. Draft the English checklist** (Depends on: B4 | Est: 2h)
   - **Context:** Decisions 7-12 and 15. The Web file is the structural template.
   - **Scope & Entry:** `Markdown/publishing-checklist.md` (new).
   - **Action:**
@@ -257,6 +257,12 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
     - `node Tools/PrintPDF/build.mjs Markdown/publishing-checklist.md --language en --output Tools/PrintPDF/Output` finishes with zero warnings.
     - A one-line node check confirms that item IDs are unique and sequential within each section.
     - Every main and tagged entry in `conflicts.md` maps to an item.
+  - **Note:** Done on 2026-11-17, commit `create: english checklist`.
+    - **Size:** 257 items in A-O: A20 B33 C29 D21 E3 F9 G19 H11 I9 J9 K14 L12 M21 N30 O17. 88 carry a marker.
+    - **Build:** the PDF builds with no parser warnings. The only message is "Changelog not found", which D2 removes.
+    - **Cross-references:** D10 to N8, E1 and M18 to O2, M9 to M3 and C5, M18 to L4.
+    - **Wording:** M9 bans simulated gambling, consistent with Web M3, which is kept. The matrix allowed "infrequent" simulated gambling; the house rule is stricter.
+    - **Not checked:** the PDF layout was not checked visually here, because pdftoppm is missing and the browser pane can't screenshot local files.
 
 - [ ] **C2. User review of the English draft** (Depends on: C1 | Est: 30m plus user time)
   - **Context:** Decision 11. A Russian translation is costly to redo, so the English text is frozen first.
