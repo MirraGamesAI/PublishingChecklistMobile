@@ -25,7 +25,8 @@ One checklist for Unity games on 9 mobile stores, listed in Sources: 8 Android s
 - [ ] **A8.** Game speed and physics are the same at 60, 90 and 120 Hz.
 - [ ] **A9.** No fast battery drain or overheating. Menus and idle screens cap the frame rate, and an hour of play starting at 33 C room temperature keeps the device under 40 C.
 - [ ] **A10.** The first install is playable. Content needed before first play downloads only after the game shows its size and asks. Long downloads keep the screen awake, and a failed download shows a message and can retry.
-- [ ] **A11.** The game works on an IPv6-only network.
+- [ ] **A11.** Every online feature works on an IPv6-only network: ads, login, purchases, cloud saves and multiplayer. App Review tests on such networks.
+  - Unity: connect by host name, never a hard-coded IPv4 address. Test with macOS Internet Sharing and "Create NAT64 Network".
 
 **Can be automated**
 
