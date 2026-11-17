@@ -1,7 +1,7 @@
 # Mobile Checklist 1.0.0
 
-- **Status:** In progress (6/12 tasks complete | Next: B4)
-- **Total Estimate:** 6h 30m active, plus about 45m of agent wall time overlapped by B2 and the user's review time in C2 (Remaining: 4h 50m)
+- **Status:** In progress (7/12 tasks complete | Next: C1, after the user answers the paid loot box question in the B4 note)
+- **Total Estimate:** 6h 30m active, plus about 45m of agent wall time overlapped by B2 and the user's review time in C2 (Remaining: 4h 05m)
 - **Goal:** Publish the Unity Mobile Publishing Checklist 1.0.0 in `MirraGamesAI/PublishingChecklistMobile`: English and Russian files, identical item for item, whose main items plus store-tagged items make each per-store build (AAB or APK for 8 Android stores, IPA for Apple) pass review in all 9 covered stores. Done when every store rule found in research is either a checklist item or a recorded drop with a reason, and both PDFs build with zero warnings.
 
 ### Stack
@@ -219,7 +219,7 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
       - Huawei 64-bit and target API: only third-party sources exist. Both are covered by the main items (arm64-v8a, API 36).
     - **Open:** Galaxy Store's age-rating system (store form, out of scope); the official minimum Unity patch for Xcode 26 (decision 12 outcome).
 
-- [ ] **B4. Build the conflict matrix** (Depends on: B3 | Est: 45m)
+- [x] **B4. Build the conflict matrix** (Depends on: B3 | Est: 45m)
   - **Context:** Decision 7. This step turns the store rules into rules that hold in every store.
   - **Scope & Entry:** `Documentation/Research/conflicts.md` (new).
   - **Action:**
@@ -228,6 +228,18 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
     3. List every dropped rule with its reason: out of scope, duplicate or store page material.
     4. Map each Web 2.0.0 item to keep, adapt, drop or reverse (decision 15).
   - **Verify:** the number of referenced rows equals the total number of rule rows, and no topic has two contradicting main rules.
+  - **Note:** Done on 2026-11-17, commit `create: conflict matrix`.
+    - **Result:** `conflicts.md` references all 643 rows exactly once, in 183 topics: 101 main, 61 tagged, 21 dropped. A "Draft item" column per topic is the input for C1, and a Web 2.0.0 mapping table closes the file.
+    - **Coverage check:** extract the last column of every table row from `## A.` onward, then compare it with the `<file>#<row>` IDs of all `## Rules` tables.
+  - **Note:** Golden rules derived in B4 that C1 must keep:
+    - **Signing:** every Android build uses one studio-held app signing key. Play App Signing gets the uploaded studio key. Reason: Aptoide requires the Play package and signature for games with purchases, and Xiaomi and RuStore recommend it. Samsung's advice to use a separate package was dropped.
+    - **Version codes:** every non-Play versionCode is higher than the Play build's.
+    - **No installer check:** Play automatic protection's installer check is off.
+    - **Android package rules:** minSdk 24-28, target API 36, both ARM ABIs, a universal APK of 2 GB or less with no OBB outside Google Play.
+    - **No in-game update prompts:** Xiaomi bans them.
+    - **Full Russian localization:** required by 168-FZ.
+    - **Russian players' data stored in Russia:** 152-FZ; tagged RuStore, but the law covers every build.
+  - **Note:** Open question for the user: paid loot boxes. Decision 6 (13+) and research conflict: Apple and Huawei rate paid loot boxes 16+ in Australia and 18+ in Brazil. The matrix currently says "no paid loot boxes" (M, topic "13+ rating"). C1 waits for the answer.
 
 #### C. English checklist (Depends on: B | Est: 2h 30m)
 
