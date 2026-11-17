@@ -1,7 +1,8 @@
 # Mobile Checklist 1.0.0
 
-- **Status:** In progress (8/12 tasks complete | Next: C2, user review of the English PDF)
-- **Total Estimate:** 6h 30m active, plus about 45m of agent wall time overlapped by B2 and the user's review time in C2 (Remaining: 2h 05m)
+- **Status:** In progress (11/12 tasks complete | Next: E1, needs the user's go-ahead to push and open the PR)
+- **Total Estimate:** 6h 30m active, plus about 45m of agent wall time overlapped by B2 and the user's review time in C2 (Remaining: 15m)
+- **Note:** The user approved the English draft on 2026-11-17. Their only question was about IPv6, so A11 was reworded to say that every online feature must work on an IPv6-only network, with a NAT64 test hint.
 - **Goal:** Publish the Unity Mobile Publishing Checklist 1.0.0 in `MirraGamesAI/PublishingChecklistMobile`: English and Russian files, identical item for item, whose main items plus store-tagged items make each per-store build (AAB or APK for 8 Android stores, IPA for Apple) pass review in all 9 covered stores. Done when every store rule found in research is either a checklist item or a recorded drop with a reason, and both PDFs build with zero warnings.
 
 ### Stack
@@ -264,7 +265,7 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
     - **Wording:** M9 bans simulated gambling, consistent with Web M3, which is kept. The matrix allowed "infrequent" simulated gambling; the house rule is stricter.
     - **Not checked:** the PDF layout was not checked visually here, because pdftoppm is missing and the browser pane can't screenshot local files.
 
-- [ ] **C2. User review of the English draft** (Depends on: C1 | Est: 30m plus user time)
+- [x] **C2. User review of the English draft** (Depends on: C1 | Est: 30m plus user time)
   - **Context:** Decision 11. A Russian translation is costly to redo, so the English text is frozen first.
   - **Scope & Entry:** `Markdown/publishing-checklist.md`, `Tools/PrintPDF/Output/publishing-checklist.pdf`.
   - **Action:** Send the PDF to the user, apply their feedback, and repeat until they approve.
@@ -272,19 +273,24 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
 
 #### D. Russian copy and repository docs (Depends on: C | Est: 1h 20m)
 
-- [ ] **D1. Translate into Russian** (Depends on: C2 | Est: 1h)
+- [x] **D1. Translate into Russian** (Depends on: C2 | Est: 1h)
   - **Context:** Decision 11.
   - **Scope & Entry:** `Markdown/publishing-checklist-russian.md` (new). Terms come from Web `Markdown/publishing-checklist-russian.md`.
   - **Action:** Translate item for item. Tags stay as they are; markers and section labels match `LANGUAGES.ru` exactly; the date line uses "Проверено".
   - **Verify:** A node check finds identical item ID lists in both files, and `node Tools/PrintPDF/build.mjs` with no arguments builds both PDFs with zero warnings.
 
-- [ ] **D2. Write the README and CHANGELOG** (Depends on: D1 | Est: 20m)
+- [x] **D2. Write the README and CHANGELOG** (Depends on: D1 | Est: 20m)
   - **Context:** Decisions 4 and 8. Modelled on the Web `README.md` and `CHANGELOG.md`.
   - **Scope & Entry:** `README.md` and `CHANGELOG.md` (new).
   - **Action:**
     - README: a one-line description (9 stores, Android and iOS, covers the build and not the store page), a path table, build instructions, and the same 4 editing rules as Web.
     - CHANGELOG: `# Unity Mobile Publishing Checklist 1.0.0`, a summary of what is covered, and Epic's status under decision 4.
   - **Verify:** Both PDF covers show 1.0.0, and every README link resolves to an existing path.
+  - **Note:** D1 and D2 were done on 2026-11-17.
+    - **Russian file:** it matches the English file in item IDs, markers, tags and the 20 Unity hints. It keeps the Web Russian file's style (no letter yo, straight quotes).
+    - **PDFs:** `node Tools/PrintPDF/build.mjs` builds both PDFs with no warnings, and both covers show 1.0.0.
+    - **README:** it follows the owner's layout (`###` headings: About, Features, Requirements, Limitations, How to use).
+    - **License:** there is no LICENSE file and no License section, because the Web repository has none and the owner name (studio or person) is unconfirmed. Ask the user before adding the MIT template.
 
 #### E. Ship (Depends on: D | Est: 20m)
 
