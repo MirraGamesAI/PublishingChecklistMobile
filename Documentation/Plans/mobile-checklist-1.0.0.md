@@ -1,7 +1,7 @@
 # Mobile Checklist 1.0.0
 
-- **Status:** In progress (3/12 tasks complete | Next: B1)
-- **Total Estimate:** 6h 30m active, plus about 45m of agent wall time overlapped by B2 and the user's review time in C2 (Remaining: 6h 05m)
+- **Status:** In progress (5/12 tasks complete | Next: B3, after the B1 agents finish)
+- **Total Estimate:** 6h 30m active, plus about 45m of agent wall time overlapped by B2 and the user's review time in C2 (Remaining: 5h 20m)
 - **Goal:** Publish the Unity Mobile Publishing Checklist 1.0.0 in `MirraGamesAI/PublishingChecklistMobile`: English and Russian files, identical item for item, whose main items plus store-tagged items make each per-store build (AAB or APK for 9 Android stores, IPA for Apple) pass review in all 10 covered stores. Done when every store rule found in research is either a checklist item or a recorded drop with a reason, and both PDFs build with zero warnings.
 
 ### Stack
@@ -127,7 +127,7 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
 
 #### B. Research and tooling (Depends on: A | Est: 2h)
 
-- [ ] **B1. Launch 7 research agents in parallel** (Depends on: A2 | Est: 15m active, about 45m wall)
+- [x] **B1. Launch 7 research agents in parallel** (Depends on: A2 | Est: 15m active, about 45m wall)
   - **Context:** Decisions 3-6, 13 and 14. Agents write to disk, so the research survives a context reset.
   - **Scope & Entry:** `Documentation/Research/` (new).
   - **Action:** Send one message with 7 background `general-purpose` Agent calls. Each agent writes only its own file:
@@ -173,8 +173,9 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
 
     Level is `must` when breaking the rule causes rejection or removal, and `should` for quality or featuring guidance.
   - **Verify:** see B3.
+  - **Note:** Launched on 2026-11-17. Each brief also asked the agent to report every seed fact as `confirmed`, `corrected` or `not found` in a `## Seed facts` table, and to put the full URL in each rule's Source column. If a session reset loses the agents, rerun only the groups whose file is missing.
 
-- [ ] **B2. Adapt PrintPDF for the mobile checklist** (Depends on: A2 | Est: 30m, done while the B1 agents run)
+- [x] **B2. Adapt PrintPDF for the mobile checklist** (Depends on: A2 | Est: 30m, done while the B1 agents run)
   - **Context:** Decisions 8 and 10. The tag table is the source for `PLATFORMS`.
   - **Scope & Entry:** `Tools/PrintPDF/` (new), `Entry: Tools/PrintPDF/build.mjs#PLATFORMS`.
   - **Action:**
@@ -185,6 +186,7 @@ The user approved decisions 1-6 and 13 in chat on 2026-11-17. The others are def
 
     `LANGUAGES` and the parser stay unchanged.
   - **Verify:** `node Tools/PrintPDF/build.mjs <sample>.md --output <scratch folder>` builds a one-section sample, using every tag, both markers and an Optional block, with zero warnings. The cover lists the 10 stores and not `Android`.
+  - **Note:** Done on 2026-11-17. The sample built with no parser warnings. The only message was the expected "Changelog not found", which D2 removes. The HTML has 10 cover chips and no `Android` chip. The label `**Platform-specific**` is kept even though it groups stores, because the parsers match it exactly.
 
 - [ ] **B3. Validate the research files** (Depends on: B1 | Est: 30m)
   - **Context:** Decision 13. Agent output is unverified until checked.
